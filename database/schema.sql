@@ -60,4 +60,4 @@ INSERT INTO companies (company_name) VALUES ('ExpenseIQ Corp');
 -- Seed a default Admin user (Password: admin123)
 -- The hash below is generated using bcrypt with salt rounds of 10
 INSERT INTO users (company_id, role_id, username, email, password_hash, status)
-VALUES (1, 1, 'admin', 'admin@expenseiq.com', '$2a$10$X7vH0pX0vH0pX0vH0pX0vOu3.W8N5GvYk8.z/y9bC7b5Yk8.z/y9b', 'ACTIVE');
+VALUES (1, 1, 'admin', 'admin@expenseiq.com', '$2a$10$X7vH0pX0vH0pX0vH0pX0vOu3.W8N5GvYk8.z/y9bC7b5Yk8.z/y9', 'ACTIVE');
