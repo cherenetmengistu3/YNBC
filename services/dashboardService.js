@@ -110,10 +110,32 @@ const getFinancialHealth = async (companyId) => {
     };
 };
 
+/**
+ * Service to fetch a unified, paginated list of all financial records (Income and Expenses).
+ * This is useful for a "Transaction History" or "Ledger" view.
+ */
+const getFinancialRecords = async (companyId, limit, offset) => {
+    // We combine both tables using UNION ALL
+    // We add a 'type' column to distinguish between INCOME and EXPENSE in the UI
+    const sql = `
+        (SELECT id, title as name, description, category, amount, expense_date as date, 'EXPENSE' as type FROM expenses WHERE company_id = ?)
+        UNION ALL
+        (SELECT id, source_name as name, description, 'Income' as category, amount, income_date as date, 'INCOME' as type FROM income WHERE company_id = ?)
+        ORDER BY date DESC
+        LIMIT ? OFFSET ?
+    `;
+    // Execute query with company isolation and pagination parameters
+    const [rows] = await pool.query(sql, [companyId, companyId, parseInt(limit), parseInt(offset)]);
+    // Return the combined list
+    return rows;
+};
+
 // Export the service functions so the controller can use them
 module.exports = {
     // Function to get the general summary
     getFinancialSummary,
     // Function to check for financial warnings
-    getFinancialHealth
+    getFinancialHealth,
+    // Function to get combined financial records
+    getFinancialRecords
 };

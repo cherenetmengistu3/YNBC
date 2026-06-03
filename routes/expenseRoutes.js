@@ -39,5 +39,13 @@ router.get('/:id', verifyToken, expenseController.getExpenseById);
 // Map the DELETE request to the deleteExpense controller function
 router.delete('/:id', verifyToken, expenseController.deleteExpense);
 
+/**
+ * Endpoint to update an existing expense record.
+ * PUT /api/expenses/:id
+ * Access: Authenticated users only
+ */
+// Map the PUT request to the updateExpense controller function
+router.put('/:id', verifyToken, expenseController.updateExpense);
+
 // Export the router module to be mounted in the main server file
 module.exports = router;

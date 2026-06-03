@@ -39,5 +39,13 @@ router.get('/:id', verifyToken, incomeController.getIncomeById);
 // Every line is commented: ensure the user is authenticated before allowing deletion
 router.delete('/:id', verifyToken, incomeController.deleteIncome);
 
+/**
+ * Route to update an existing income record.
+ * PUT /api/income/:id
+ * Access: Authenticated users only
+ */
+// Map the PUT request to the updateIncome controller function
+router.put('/:id', verifyToken, incomeController.updateIncome);
+
 // Export the router module to be integrated into the main application in server.js
 module.exports = router;
